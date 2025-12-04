@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>NoDelayApp — Operador</title>
+  <style>
+    :root{
+      --bg:#020303; --text:#ffffff; --muted:#b3b3b3;
+      --card:#0b0e10; --stroke:#151a1d; --accent:#D15900; --accent-12:#d159001f;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu}
+    header{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      padding:22px 20px; border-bottom:1px solid var(--stroke);
+      position:sticky; top:0; background:linear-gradient(180deg,var(--bg),rgba(2,3,3,0.85) 60%,rgba(2,3,3,0));
+      backdrop-filter: blur(6px) saturate(140%);
+    }
+    h1{margin:0; font-size:22px; letter-spacing:.3px}
+    .controls{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    select{
+      background:#0e1316; color:var(--text); border:1px solid var(--stroke); border-radius:12px;
+      padding:10px 12px; outline:none;
+    }
+    select:focus{border-color:var(--accent); box-shadow:0 0 0 4px var(--accent-12)}
+    .btn{
+      background:var(--accent); color:var(--text); border:none; padding:10px 16px; border-radius:9999px;
+      cursor:pointer; font-weight:600; letter-spacing:.2px; transition:transform .06s, filter .2s, box-shadow .2s;
+      box-shadow:0 6px 16px -8px var(--accent);
+    }
+    .btn:hover{filter:brightness(1.08)}
+    .btn:active{transform:translateY(1px)}
+
+    .container{max-width:1100px; margin:0 auto; padding:18px 20px 40px}
+    .table-wrap{background:var(--card); border:1px solid var(--stroke); border-radius:16px; overflow:hidden}
+    table{width:100%; border-collapse:collapse}
+    thead th{font-size:12px; text-transform:uppercase; letter-spacing:.8px; color:#d9d9d9; background:#0f1417}
+    th,td{padding:12px 14px; border-bottom:1px solid var(--stroke); text-align:left; vertical-align:top}
+    tbody tr:hover{background:#0f1417}
+    .badge{display:inline-block; padding:6px 10px; border-radius:9999px; border:1px solid var(--accent); color:var(--text); background:transparent; font-size:12px}
+    .row{display:flex; gap:8px; flex-wrap:wrap}
+    .btn-mini{padding:6px 10px; font-size:12px}
+    .money{font-variant-numeric:tabular-nums}
+    .muted{color:var(--muted); font-size:13px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NoDelayApp — Painel do Operador</h1>
+    <div class="controls">
+      <select id="filter">
+        <option value="">Todos</option>
+        <option>CREATED</option>
+        <option>CONFIRMED</option>
+        <option>PREPARING</option>
+        <option>READY</option>
+        <option>PICKED_UP</option>
+      </select>
+      <button class="btn" id="refresh">Atualizar</button>
+      <label class="muted"><input type="checkbox" id="auto" checked> Atualização automática</label>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th><th>Aluno</th><th>Itens</th><th>Total</th><th>Status</th><th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+<script>
+const API="/api";
+const tbody=document.getElementById('tbody');
+
+function money(v){return Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2})}
+
+async function load(){
+  const f=document.getElementById('filter').value;
+  const url=f?`${API}/operator/orders?status=${f}`:`${API}/operator/orders`;
+  const res=await fetch(url);
+  const list=await res.json();
+  tbody.innerHTML='';
+  list.forEach(o=>{
+    const tr=document.createElement('tr');
+    const itens=o.items.map(i=>`${i.item.name} x${i.quantity}`).join(', ');
+    tr.innerHTML=`<td>${o.id}</td>
+      <td>${o.student.name}</td>
+      <td>${itens}</td>
+      <td class="money">R$ ${money(o.total)}</td>
+      <td><span class='badge'>${o.status}</span></td>
+      <td class='row'></td>`;
+    const tdActions=tr.querySelector('td:last-child');
+    ['CONFIRMED','PREPARING','READY','PICKED_UP'].forEach(st=>{
+      const b=document.createElement('button'); b.className='btn btn-mini'; b.textContent=st; b.onclick=()=>update(o.id,st);
+      tdActions.appendChild(b);
+    });
+    tbody.appendChild(tr);
+  });
+}
+
+async function update(id,status){
+  await fetch(`${API}/operator/orders/${id}/status`,{
+    method:'PATCH', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({status})
+  });
+  load();
+}
+
+document.getElementById('refresh').onclick=load;
+(function loop(){ if(document.getElementById('auto').checked){ load(); } setTimeout(loop, 3000); })();
+load();
+</script>
+</body>
+</html>
