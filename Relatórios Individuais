@@ -1,0 +1,60 @@
+Relatório INDIVIDUAL
+
+Mateus Felis –
+
+Responsável por grande parte das tarefas estruturais do sistema, Mateus atuou diretamente na base e na aplicação visual do projeto.
+Atividades realizadas:
+
+Participou da Configuração do Ambiente (Fase 1), garantindo que todas as ferramentas, dependências e estrutura inicial estivessem prontas para os demais integrantes trabalharem sem impedimentos.
+
+Contribuiu no Desenvolvimento do Frontend Admin (Fase 2), auxiliando na criação de interfaces funcionais e voltadas para gestão interna.
+
+Atuou nos Testes de Usabilidade (Fase 3), analisando a experiência do usuário, identificando falhas e garantindo que o sistema estivesse intuitivo e fluido.
+
+Henrique Creolezi –
+
+Focado na parte lógica e funcional do sistema, Henrique executou atividades essenciais para a operacionalidade dos módulos internos.
+Atividades realizadas:
+
+Executou a Modelagem do Banco de Dados (Fase 1), definindo entidades, relacionamentos e garantindo coerência estrutural.
+
+Desenvolveu a Lógica de Status (ROTA/006 – Fase 2), responsável por controlar atualizações internas do sistema em diferentes etapas do fluxo.
+
+Implementou o sistema de Notificações de Retirada (ROTA/007 – Fase 2), permitindo comunicação eficiente entre setores.
+
+Gabriel Santos –
+
+Gabriel atuou principalmente em partes essenciais do fluxo inicial do usuário e no processamento de pedidos.
+Atividades realizadas:
+
+Desenvolveu a Lógica de Login e Cadastro (Fase 1), garantindo autenticação segura e funcional para novos e antigos usuários.
+
+Trabalhou na Lógica do Caminho e Pedido (Fase 2), estruturando a forma como pedidos são tratados dentro do sistema.
+
+Participou dos Testes de Integração Final (Fase 4), verificando compatibilidade entre módulos e corrigindo inconsistências.
+
+Mateus Polizinani –
+
+Com atuação voltada ao backend administrativo e às funcionalidades gerais do sistema, Polizinani teve papel crucial nas camadas internas.
+Atividades realizadas:
+
+Desenvolveu a Lógica de Usuários, Produtos e Pedidos (Fase 2), uma das partes centrais da operação do sistema.
+
+Auxiliou no Desenvolvimento do Painel Admin (Fase 2), criando telas e funções voltadas para gestão.
+
+Implementou o Fluxo de Pagamentos (ROTA/09 – Fase 2), garantindo processamento eficiente e organizado das transações.
+
+Eduardo Borsatto –
+
+Eduardo concentrou-se no funcionamento visual da aplicação e em recursos avançados de monitoramento.
+Atividades realizadas:
+
+Desenvolveu a Lógica do Login/Cadastro no Frontend (Fase 2), conectando visualmente o fluxo criado pelo backend.
+
+Trabalhou no Desenvolvimento do Frontend Responsivo (Fase 2), garantindo adaptação perfeita para múltiplos dispositivos.
+
+Criou a Visualização Dinâmica da Cozinha (ROTA/010 – Fase 3), um módulo fundamental para acompanhamento em tempo real das operações.
+
+Atividade em andamento – Equipe
+
+Toda a equipe colabora atualmente na Conexão de Bugs e Otimização Final (Fase 4). Essa etapa consiste em revisar o sistema por completo, corrigir inconsistências e melhorar o desempenho geral antes da entrega final.
